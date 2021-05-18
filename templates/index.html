@@ -1,4 +1,14 @@
+<!-- get_flash_messages receive messages we send from server (app.py) -->
 <!-- Action: were I want to send the data after receiving it in the form -->
+
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+  <p>{{ message }}</p>
+{% endfor %}
+{% endif %}
+{% endwith %}
 
 <form action="/add_contact" method="POST">
 
