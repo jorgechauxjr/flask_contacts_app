@@ -16,7 +16,12 @@ mysql = MySQL(app)
 
 @app.route('/')
 def Index():
-    return render_template('index.html')
+    # cursor allows to execute queries in mysql
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM contacts')
+    data = cur.fetchall()
+    # print(data)    
+    return render_template('index.html', contacts = data)
 
 @app.route('/add_contact', methods=['POST'])
 def add_contact():
