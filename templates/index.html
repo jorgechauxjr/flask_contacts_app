@@ -5,12 +5,40 @@
 
 <div class="row">
   <div class=".col-md-5">
+    <!-- get_flash_messages: receive messages we send from server (app.py) -->
+    <!-- Action: were I want to send the data after receiving it in the form -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">OK</button>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
     <div class="card card-body">
       <form action="/add_contact" method="POST">
-        <input type="text" name="fullname" placeholder="Fullname">
-        <input type="text" name="phone" placeholder="Phone">
-        <input type="text" name="email" placeholder="Email">
-        <button type="submit"> Save </button>     
+        <div class="form-group">
+          <input type="text" name="fullname" placeholder="Fullname"
+          class="form-control">
+        </div>
+
+        <div class="form-group">
+          <input type="text" name="phone" placeholder="Phone"
+          class="form-control">
+        </div>
+
+        <div class="form-group">
+          <input type="text" name="email" placeholder="Email"
+          class="form-control">
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block"> Save </button>  
+        </div>
+        
       </form>
     </div>
   </div>
@@ -32,8 +60,8 @@
             <td>{{ contact.2 }}</td>
             <td>{{ contact.3 }}</td>
             <td>
-              <a href="/edit/{{contact.0}}">Edit</a>
-              <a href="/delete/{{contact.0}}">Delete</a>
+              <a href="/edit/{{contact.0}}" class="btn btn-secondary">Edit</a>
+              <a href="/delete/{{contact.0}}"class="btn btn-danger">Delete</a>
             </td>
           </tr>
         {% endfor %}
@@ -42,20 +70,5 @@
     
   </div>
 </div>
-
-<!-- get_flash_messages receive messages we send from server (app.py) -->
-<!-- Action: were I want to send the data after receiving it in the form -->
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-{% for message in messages %}
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-  {{message}}
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">OK</button>
-</div>
-{% endfor %}
-{% endif %}
-{% endwith %}
-  
-
 
 {% endblock %}
