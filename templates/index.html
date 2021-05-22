@@ -3,46 +3,59 @@
 <!-- Blockbody es lo que semostraria en el blockbody de layout.html -->
 {% block body %}
 
+<div class="row">
+  <div class=".col-md-5">
+    <div class="card card-body">
+      <form action="/add_contact" method="POST">
+        <input type="text" name="fullname" placeholder="Fullname">
+        <input type="text" name="phone" placeholder="Phone">
+        <input type="text" name="email" placeholder="Email">
+        <button type="submit"> Save </button>     
+      </form>
+    </div>
+  </div>
+
+  <div class=".col-md-7">
+    <table class="table table-striped table-bordered bg-white table-sm">
+      <thead>
+        <tr>
+          <td>Fullname</td>
+          <td>Phone</td>
+          <td>Email</td>
+          <td>Operations</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for contact in contacts %}
+          <tr>
+            <td>{{ contact.1 }}</td>
+            <td>{{ contact.2 }}</td>
+            <td>{{ contact.3 }}</td>
+            <td>
+              <a href="/edit/{{contact.0}}">Edit</a>
+              <a href="/delete/{{contact.0}}">Delete</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    
+  </div>
+</div>
+
 <!-- get_flash_messages receive messages we send from server (app.py) -->
 <!-- Action: were I want to send the data after receiving it in the form -->
 {% with messages = get_flashed_messages() %}
 {% if messages %}
 {% for message in messages %}
-  <p>{{ message }}</p>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">OK</button>
+</div>
 {% endfor %}
 {% endif %}
 {% endwith %}
   
-<form action="/add_contact" method="POST">
 
-  <input type="text" name="fullname" placeholder="Fullname">
-  <input type="text" name="phone" placeholder="Phone">
-  <input type="text" name="email" placeholder="Email">
-  <button type="submit"> Save </button>
-
-</form>
-<table>
-  <thead>
-    <tr>
-      <td>Fullname</td>
-      <td>Phone</td>
-      <td>Email</td>
-      <td>Operations</td>
-    </tr>
-  </thead>
-  <tbody>
-    {% for contact in contacts %}
-      <tr>
-        <td>{{ contact.1 }}</td>
-        <td>{{ contact.2 }}</td>
-        <td>{{ contact.3 }}</td>
-        <td>
-          <a href="/edit/{{contact.0}}">Edit</a>
-          <a href="/delete/{{contact.0}}">Delete</a>
-        </td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
 
 {% endblock %}
