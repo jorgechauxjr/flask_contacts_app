@@ -1,6 +1,10 @@
+{% extends 'layout.html' %}
+
+<!-- Blockbody es lo que semostraria en el blockbody de layout.html -->
+{% block body %}
+
 <!-- get_flash_messages receive messages we send from server (app.py) -->
 <!-- Action: were I want to send the data after receiving it in the form -->
-
 {% with messages = get_flashed_messages() %}
 {% if messages %}
 {% for message in messages %}
@@ -40,3 +44,5 @@
     {% endfor %}
   </tbody>
 </table>
+
+{% endblock %}
